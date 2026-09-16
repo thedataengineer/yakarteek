@@ -26,7 +26,14 @@ Identity and per-deploy values live in `src/consts.ts`:
 - `SOCIALS` — profile URLs. An empty string hides that link everywhere.
 
 The canonical origin is `site` in `astro.config.mjs`; it feeds canonical tags,
-`sitemap-index.xml`, the RSS feed, and Open Graph URLs.
+`sitemap-index.xml`, the RSS feed, and Open Graph URLs. `trailingSlash: "always"`
+keeps internal links in the same shape the build emits, so navigation never
+costs a redirect.
+
+`wrangler.json` keeps `main` pointed at `@astrojs/cloudflare/entrypoints/server`;
+the adapter's Vite plugin fills in the assets directory at build time. Keep
+`compatibility_date` reasonably current — a stale date makes the adapter emit
+`[object Object]` for every prerendered page instead of HTML.
 
 ## Adding a blog post
 
@@ -48,12 +55,13 @@ heroImage: "/blog-placeholder-1.jpg" # optional
 | Command            | Action                                                  |
 | :----------------- | :------------------------------------------------------ |
 | `npm install`      | Install dependencies                                    |
-| `npm run dev`      | Dev server at `localhost:4321`                           |
-| `npm run build`    | Build to `./dist/`                                       |
+| `npm run dev`      | Dev server at `localhost:4321` (runs in the background)  |
+| `npm run build`    | Build to `./dist/` (`client/` assets + `server/` worker) |
 | `npm run preview`  | Build, then serve through Wrangler as Workers will run it |
 | `npm run check`    | Build + `tsc` + `wrangler deploy --dry-run`              |
 | `npm run deploy`   | Deploy to Cloudflare Workers                             |
 | `npm run cf-typegen` | Regenerate `worker-configuration.d.ts` from `wrangler.json` |
+| `npx astro dev status` / `stop` / `logs` | Manage the background dev server    |
 | `npx wrangler tail` | Stream live logs from the deployed Worker               |
 
 ## Credit
