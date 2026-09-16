@@ -7,9 +7,10 @@ import { services } from '../data/services';
     <a href="/" class="brand">{SITE_TITLE}</a>
     <div class="tabs">
       <a href="/">Home</a>
-      <a href="/about">About</a>
-      {services.map((s) => <a href={`/services/${s.slug}`}>{s.title}</a>)}
-      <a href="/book" class="book">Book me</a>
+      <a href="/about/">About</a>
+      {services.map((s) => <a href={`/services/${s.slug}/`}>{s.title}</a>)}
+      <a href="/blog/">Blog</a>
+      <a href="/book/" class="book">Book me</a>
     </div>
   </nav>
   <style>

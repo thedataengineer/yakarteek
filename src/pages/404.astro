@@ -1,0 +1,35 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead
+    title="Page not found — Aswani Karteek Yadavilli"
+    description="That page doesn't exist."
+    noindex
+  /></head>
+  <body>
+    <Header />
+    <main>
+      <section class="notfound">
+        <p class="code">404</p>
+        <h1>Page not found</h1>
+        <p>That page doesn't exist — it may have moved or never been here.</p>
+        <div class="cta">
+          <a href="/" class="btn">Go home</a>
+          <a href="/services/" class="btn ghost">See services</a>
+        </div>
+      </section>
+    </main>
+    <Footer />
+    <style>
+      .notfound { max-width: 620px; margin: 0 auto; text-align: center; }
+      .code { font-size: 1rem; letter-spacing: 0.2em; color: rgb(var(--gray)); margin: 0; }
+      .cta { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+      .btn { background: rgb(var(--accent)); color: #fff; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; }
+      .btn.ghost { background: transparent; color: rgb(var(--accent)); border: 1px solid rgb(var(--accent)); }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { services } from '../../data/services';
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title="Services — Aswani Karteek Yadavilli" description="Keynotes, advisory, solutions, training, mentorship, and more." /></head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <h1>Services</h1>
+        <p class="lede">Ways we can work together — from a single talk to hands-on delivery.</p>
+        <div class="grid">
+          {services.map((s) => (
+            <a class="card" href={`/services/${s.slug}/`}>
+              <span class="icon">{s.icon}</span>
+              <h2>{s.title}</h2>
+              <p>{s.tagline}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    </main>
+    <Footer />
+
+    <style>
+      .lede { font-size: 1.15rem; color: rgb(var(--gray-dark)); }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 2rem; }
+      .card { display: block; padding: 1.25rem; border: 1px solid rgb(var(--gray-light)); border-radius: 12px; text-decoration: none; color: inherit; transition: box-shadow 0.15s, transform 0.15s; }
+      .card:hover { box-shadow: var(--box-shadow); transform: translateY(-2px); }
+      .card .icon { font-size: 1.6rem; }
+      .card h2 { font-size: 1.25rem; margin: 0.4rem 0 0.2rem; }
+      .card p { margin: 0; color: rgb(var(--gray-dark)); font-size: 0.95rem; }
+    </style>
+  </body>
+</html>

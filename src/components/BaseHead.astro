@@ -2,16 +2,31 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
+import { SITE_TITLE } from '../consts';
 
 interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	/** Open Graph object type: 'article' for blog posts, 'website' elsewhere. */
+	type?: 'website' | 'article';
+	/** Keep the page out of search indexes (e.g. the 404 page). */
+	noindex?: boolean;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const {
+	title,
+	description,
+	image = '/blog-placeholder-1.jpg',
+	type = 'website',
+	noindex = false,
+} = Astro.props;
 
-const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
+// Resolve against Astro.site so absolute URLs are correct no matter which
+// host served the build (dev server, preview, production).
+const base = Astro.site ?? Astro.url;
+const canonicalURL = new URL(Astro.url.pathname, base);
+const imageURL = new URL(image, base);
 ---
 
 <!-- Global Metadata -->
@@ -26,6 +41,16 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+
+<!-- Feed & sitemap discovery -->
+<link
+	rel="alternate"
+	type="application/rss+xml"
+	title={SITE_TITLE}
+	href={new URL('rss.xml', base)}
+/>
+<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -33,15 +58,16 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <meta name="description" content={description} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={imageURL} />
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />

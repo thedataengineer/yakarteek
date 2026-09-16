@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, SOCIALS } from '../consts';
 import { services } from '../data/services';
 ---
 <!doctype html>
@@ -20,21 +20,24 @@ import { services } from '../data/services';
           advisory, training, mentorship, and hands-on delivery.
         </p>
         <div class="hero-cta">
-          <a href="/book" class="btn">Book time with me</a>
-          <a href="/about" class="btn ghost">About me</a>
+          <a href="/book/" class="btn">Book time with me</a>
+          <a href="/about/" class="btn ghost">About me</a>
         </div>
         <div class="socials">
-          <a href="https://github.com/thedataengineer" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://twitter.com/thekarteek" target="_blank" rel="noopener">X</a>
-          <a href="https://www.linkedin.com/in/YOUR-HANDLE" target="_blank" rel="noopener">LinkedIn</a>
+          <a href={SOCIALS.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href={SOCIALS.x} target="_blank" rel="noopener noreferrer">X</a>
+          {SOCIALS.linkedin && (
+            <a href={SOCIALS.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          )}
         </div>
       </section>
 
       <section>
         <h2>How I can help</h2>
+        <p class="section-link"><a href="/services/">See all services →</a></p>
         <div class="grid">
           {services.map((s) => (
-            <a class="card" href={`/services/${s.slug}`}>
+            <a class="card" href={`/services/${s.slug}/`}>
               <span class="icon">{s.icon}</span>
               <h3>{s.title}</h3>
               <p>{s.tagline}</p>
@@ -53,6 +56,7 @@ import { services } from '../data/services';
       .btn { background: rgb(var(--accent)); color: #fff; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; }
       .btn.ghost { background: transparent; color: rgb(var(--accent)); border: 1px solid rgb(var(--accent)); }
       .socials { display: flex; gap: 1.25rem; justify-content: center; }
+      .section-link { margin: 0 0 1rem; font-size: 0.95rem; }
       .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
       .card { display: block; padding: 1.25rem; border: 1px solid rgb(var(--gray-light)); border-radius: 12px; text-decoration: none; color: inherit; transition: box-shadow 0.15s, transform 0.15s; }
       .card:hover { box-shadow: var(--box-shadow); transform: translateY(-2px); }

@@ -7,7 +7,10 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://example.com",
+	site: "https://karteekyadavilli.me",
+	// Output is directory-format, so canonical URLs end in "/". Keep internal
+	// links in the same shape to avoid a 307 on every navigation.
+	trailingSlash: "always",
 	integrations: [mdx(), sitemap()],
 	adapter: cloudflare({
 		platformProxy: {
