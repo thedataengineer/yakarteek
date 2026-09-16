@@ -1,0 +1,26 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<!doctype html>
+<html lang="en">
+  <head><BaseHead title="Book me — Aswani Karteek Yadavilli" description="Book time with Aswani Karteek Yadavilli." /></head>
+  <body>
+    <Header />
+    <main>
+      <section class="book">
+        <h1>Let's work together</h1>
+        <p>Pick a time below, or email me at <a href="mailto:you@example.com">you@example.com</a> with what you have in mind.</p>
+
+        <!-- Replace YOUR_HANDLE with your Calendly username -->
+        <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR_HANDLE" style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      </section>
+    </main>
+    <Footer />
+    <style>
+      .book { max-width: 760px; margin: 0 auto; }
+    </style>
+  </body>
+</html>

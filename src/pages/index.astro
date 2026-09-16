@@ -3,48 +3,62 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { services } from '../data/services';
 ---
-
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head><BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} /></head>
+  <body>
+    <Header />
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Pittsburgh · Data Engineer & Advisor</p>
+        <h1>Aswani Karteek Yadavilli</h1>
+        <p class="lede">
+          I build data platforms and AI systems that make it to production — and
+          I help teams and audiences do the same. Available for keynotes,
+          advisory, training, mentorship, and hands-on delivery.
+        </p>
+        <div class="hero-cta">
+          <a href="/book" class="btn">Book time with me</a>
+          <a href="/about" class="btn ghost">About me</a>
+        </div>
+        <div class="socials">
+          <a href="https://github.com/thedataengineer" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://twitter.com/thekarteek" target="_blank" rel="noopener">X</a>
+          <a href="https://www.linkedin.com/in/YOUR-HANDLE" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </section>
+
+      <section>
+        <h2>How I can help</h2>
+        <div class="grid">
+          {services.map((s) => (
+            <a class="card" href={`/services/${s.slug}`}>
+              <span class="icon">{s.icon}</span>
+              <h3>{s.title}</h3>
+              <p>{s.tagline}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    </main>
+    <Footer />
+
+    <style>
+      .hero { max-width: 720px; margin: 0 auto 3rem; text-align: center; }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; color: rgb(var(--gray)); }
+      .lede { font-size: 1.15rem; line-height: 1.6; color: rgb(var(--gray-dark)); }
+      .hero-cta { display: flex; gap: 0.75rem; justify-content: center; margin: 1.5rem 0 1rem; flex-wrap: wrap; }
+      .btn { background: rgb(var(--accent)); color: #fff; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; }
+      .btn.ghost { background: transparent; color: rgb(var(--accent)); border: 1px solid rgb(var(--accent)); }
+      .socials { display: flex; gap: 1.25rem; justify-content: center; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+      .card { display: block; padding: 1.25rem; border: 1px solid rgb(var(--gray-light)); border-radius: 12px; text-decoration: none; color: inherit; transition: box-shadow 0.15s, transform 0.15s; }
+      .card:hover { box-shadow: var(--box-shadow); transform: translateY(-2px); }
+      .card .icon { font-size: 1.6rem; }
+      .card h3 { margin: 0.4rem 0 0.2rem; }
+      .card p { margin: 0; color: rgb(var(--gray-dark)); font-size: 0.95rem; }
+    </style>
+  </body>
 </html>
